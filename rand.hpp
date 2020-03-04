@@ -9,6 +9,7 @@ class Rand : public Base {
 	public:
 		Rand() : Base() {
 			object = new Op(rand() % 100);
+                        it = create_iterator();
 		}
 		
 		virtual double evaluate() {
@@ -18,9 +19,13 @@ class Rand : public Base {
 		virtual std::string stringify() {
 			return object->stringify();
 		}
+                virtual Iterator* create_iterator() {return new NullIterator(this);}
+        	virtual Base* get_left() {return nullptr;}
+        	virtual Base* get_right() {return nullptr;}
 
 	private:
 		Base* object;
+                Iterator* it;
 };
 
 #endif //__RAND_HPP__

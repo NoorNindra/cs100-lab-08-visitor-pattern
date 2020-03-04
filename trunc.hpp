@@ -10,7 +10,7 @@
 class Trunc : public Decorator {
 public:
     /* Constructors */
-    Trunc(Base* b) { function = b; }
+    Trunc(Base* b) { function = b; it = create_iterator(); }
     
     /* Pure Virtual Functions */
     virtual double evaluate() {}
@@ -19,9 +19,13 @@ public:
         return std::to_string(trunc(function->evaluate()));
     }
     
+    virtual Iterator* create_iterator() {return new UnaryIterator(this);}
+    virtual Base* get_left() {return function;}
+    virtual Base* get_right() {return nullptr;}
     
 private:
     Base* function;
+    Iterator* it;
 };
 
 #endif //__TRUNC_HPP__
