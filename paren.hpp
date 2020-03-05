@@ -18,7 +18,7 @@ class Paren : public Decorator
 		virtual Iterator* create_iterator() { return new UnaryIterator(this); }
 		virtual Base* get_left() { return exp; }
 		virtual Base* get_right() { return nullptr; }
-
+		void accept(CountVisitor* cv) { cv->visit_paren(); }
 	private:
 		Base* exp;
 		Iterator* it;

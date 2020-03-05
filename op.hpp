@@ -2,6 +2,7 @@
 #define __OP_HPP__
 
 #include "base.hpp"
+#include "visitor.hpp"
 
 class Op : public Base {
 public:
@@ -12,6 +13,7 @@ public:
     virtual Base* get_left() {return nullptr;}
     virtual Base* get_right() {return nullptr;}
 
+    void accept(CountVisitor* cv) { cv->visit_op(); } 
 private:
     double number;
     Iterator* it;

@@ -10,6 +10,7 @@
 #include "all_test.hpp"
 #include "decorator_test.hpp"
 #include "iterator_tests.hpp"
+#include "visitor_test.hpp"
 
 int main(int argc, char **argv) {
   ::testing::InitGoogleTest(&argc, argv);

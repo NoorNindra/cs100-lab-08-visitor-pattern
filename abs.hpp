@@ -20,7 +20,7 @@ class Abs : public Decorator
 		virtual Iterator* create_iterator() { return new UnaryIterator(this); }
 		virtual Base* get_left() { return function; }
 		virtual Base*  get_right() { return nullptr; }
-
+		void accept(CountVisitor* cv) { cv->visit_abs(); }
 	private:
 		Base* function;
 		Iterator* it;
