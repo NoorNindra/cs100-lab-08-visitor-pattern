@@ -9,6 +9,7 @@
 #include "rand_test.hpp"
 #include "all_test.hpp"
 #include "decorator_test.hpp"
+#include "iterator_tests.hpp"
 
 int main(int argc, char **argv) {
   ::testing::InitGoogleTest(&argc, argv);
