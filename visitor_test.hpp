@@ -55,6 +55,58 @@ TEST(VisitorTest, AddVisit) {
 
 }
 
+TEST(VisitorTest, SubVisit) {
+	Op* one = new Op(1);
+	Op* five = new Op(5);
+        Sub* sub = new Sub(five, one);
+        Paren* dummyNode = new Paren(sub);
+
+        PreorderIterator* it = new PreorderIterator(dummyNode);
+        CountVisitor* cv = new CountVisitor();
+
+        it->first();
+        while (!it->is_done()) {
+            it->current()->accept(cv);
+            it->next();
+        }
+
+        EXPECT_EQ(cv->sub_count(), 1);
+}
+
+TEST(VisitorTest, MultVisit) {
+	Op* one = new Op(1);
+        Mult* mult = new Mult(one, one);
+        Paren* dummyNode = new Paren(mult);
+
+        PreorderIterator* it = new PreorderIterator(dummyNode);
+        CountVisitor* cv = new CountVisitor();
+
+        it->first();
+        while (!it->is_done()) {
+            it->current()->accept(cv);
+            it->next();
+        }
+
+        EXPECT_EQ(cv->mult_count(), 1);
+}
+
+TEST(VisitorTest, DivVisit) {
+	Op* one = new Op(1);
+        Div* div = new Div(one, one);
+        Paren* dummyNode = new Paren(div);
+
+        PreorderIterator* it = new PreorderIterator(dummyNode);
+        CountVisitor* cv = new CountVisitor();
+
+        it->first();
+        while (!it->is_done()) {
+            it->current()->accept(cv);
+            it->next();
+        }
+
+        EXPECT_EQ(cv->div_count(), 1);
+}
+
 TEST(VisitorTest, RandVisit) {
         Rand* rand = new Rand();
         Paren* dummyNode = new Paren(rand);
@@ -91,6 +143,23 @@ TEST(VisitorTest, PowVisit) {
 
 }
 
+TEST(VisitorTest, AbsVisit) {
+	Op* one = new Op(1);
+        Abs* abs = new Abs(one);
+        Paren* dummyNode = new Paren(abs);
+
+        PreorderIterator* it = new PreorderIterator(dummyNode);
+        CountVisitor* cv = new CountVisitor();
+
+        it->first();
+        while (!it->is_done()) {
+            it->current()->accept(cv);
+            it->next();
+        }
+
+        EXPECT_EQ(cv->abs_count(), 1);
+}
+
 TEST(VisitorTest, CeilVisit) {
         Op* num = new Op(2.4);
         Ceil* ceil = new Ceil(num);
@@ -107,6 +176,23 @@ TEST(VisitorTest, CeilVisit) {
 
         EXPECT_EQ(cv->ceil_count(), 1);
 
+}
+
+TEST(VisitorTest, FloorVisit) {
+	Op* num = new Op(2.4);
+        Floor* floor = new Floor(num);
+        Paren* dummyNode = new Paren(floor);
+
+        PreorderIterator* it = new PreorderIterator(dummyNode);
+        CountVisitor* cv = new CountVisitor();
+
+        it->first();
+        while (!it->is_done()) {
+            it->current()->accept(cv);
+            it->next();
+        }
+
+        EXPECT_EQ(cv->floor_count(), 1);
 }
 
 TEST(VisitorTest, TruncVisit) {
@@ -129,6 +215,23 @@ TEST(VisitorTest, TruncVisit) {
 
         EXPECT_EQ(cv->trunc_count(), 1);
 
+}
+
+TEST(VisitorTest, ParenVisit) {
+	Op* one = new Op(1);
+        Paren* paren = new Paren(one);
+        Paren* dummyNode = new Paren(paren);
+
+        PreorderIterator* it = new PreorderIterator(dummyNode);
+        CountVisitor* cv = new CountVisitor();
+
+        it->first();
+        while (!it->is_done()) {
+            it->current()->accept(cv);
+            it->next();
+        }
+
+        EXPECT_EQ(cv->paren_count(), 1);
 }
 
 TEST(VisitorTest, AddSubVisit) {
@@ -238,6 +341,27 @@ TEST(VisitorTest, MultipleTruncVisit) {
 
         EXPECT_EQ(cv->trunc_count(), 2);
 
+}
+
+TEST(VisitorTest, MultipleSubVisit) {
+	Op* negtwoPointfour = new Op(-2.4);
+	Op* five = new Op(5);
+	Abs* abs = new Abs(negtwoPointfour);
+	Floor* floor = new Floor(abs);
+	Sub* sub = new Sub(five, floor);
+	Sub* sub2 = new Sub(five, sub);
+	Paren* dummyNode = new Paren(sub2);
+
+	PreorderIterator* it = new PreorderIterator(dummyNode);
+	CountVisitor* cv = new CountVisitor();
+
+	it->first();
+	while (!it->is_done()) {
+		it->current()->accept(cv);
+		it->next();
+	}
+	
+	EXPECT_EQ(cv->sub_count(), 2);
 }
 
 #endif //__VISITOR_TEST_HPP__
