@@ -7,10 +7,18 @@
 
 #include "iterator.hpp"
 #include "visitor.hpp"
+#include "op.hpp"
+#include "rand.hpp"
 #include "add.hpp"
 #include "sub.hpp"
+#include "mult.hpp"
+#include "div.hpp"
+#include "pow.hpp"
 #include "ceil.hpp"
+#include "floor.hpp"
 #include "abs.hpp"
+#include "paren.hpp"
+#include "trunc.hpp"
 
 TEST(IteratorTest, AddIterate) {
 	Op* one = new Op(1);
@@ -25,11 +33,6 @@ TEST(IteratorTest, AddIterate) {
         iter->next();
 
         EXPECT_EQ(iter->current()->evaluate(), 5);
-
-	//CountVisitor* vis = new Visitor();
-	//iter->accept(vis);
-	
-	//EXPECT_EQ(vis->op_count, 2);
 }
 
 TEST(IteratorTest, AddSubIterate) {
