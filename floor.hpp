@@ -10,7 +10,7 @@
 class Floor : public Decorator {
 public:
     /* Constructors */
-    Floor(Base* b) { function = b; }
+    Floor(Base* b) { function = b; it = create_iterator(); }
     
     /* Pure Virtual Functions */
     virtual double evaluate() {
@@ -19,8 +19,14 @@ public:
     
     
     virtual std::string stringify() {}
+
+    virtual Iterator* create_iterator() { return new UnaryIterator(this); }
+    virtual Base* get_left() { return function; }
+    virtual Base* get_right() { return nullptr; }
+
 private:
     Base* function;
+    Iterator* it;
 };
 
 #endif //__FLOOR_HPP__

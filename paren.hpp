@@ -5,7 +5,7 @@ class Paren : public Decorator
 {
 	public:
 		/* Constructor */
-		Paren(Base* e) {exp = e;}
+		Paren(Base* e) {exp = e; it = create_iterator(); }
 		
 		/* Virtual Functions */
 		virtual double evaluate() {}
@@ -14,8 +14,14 @@ class Paren : public Decorator
 		{
 			return "(" + exp->stringify() + ")";
 		}
+
+		virtual Iterator* create_iterator() { return new UnaryIterator(this); }
+		virtual Base* get_left() { return exp; }
+		virtual Base* get_right() { return nullptr; }
+
 	private:
 		Base* exp;
+		Iterator* it;
 };
 
 #endif //__PAREN_HPP__

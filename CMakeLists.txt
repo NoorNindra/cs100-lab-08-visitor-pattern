@@ -5,6 +5,9 @@ ADD_SUBDIRECTORY(googletest)
 SET(CMAKE_CXX_STANDARD 11)
 
 ADD_EXECUTABLE(test
+	binary_iterator.cpp
+	preorder_iterator.cpp
+	unary_iterator.cpp
 	unit_test.cpp
 )
 
